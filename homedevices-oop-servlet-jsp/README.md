@@ -1,6 +1,6 @@
 # Home electrical devices  
 ## Description  
-The third course task (OOP):  
+The third course task (Servlet and JSP):  
 Determine the hierarchy of electrical devices.  
 Plug some into a power outlet. Calculate power consumption.  
 Sort the devices of the apartment based on power.  
