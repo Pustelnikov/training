@@ -11,6 +11,7 @@
     <modules>
         <module>homedevices-oop</module>
         <module>homedevices-oop-servlet-jsp</module>
+        <module>homedevices-oop-servlet-jsp-jdbc</module>
     </modules>
 
     <properties>
@@ -21,6 +22,8 @@
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jakarta.servlet.jsp.jstl-api.version>3.0.2</jakarta.servlet.jsp.jstl-api.version>
         <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
+        <postgresql.version>42.7.5</postgresql.version>
+        <c3p0.version>0.10.2</c3p0.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +49,16 @@
                 <groupId>org.glassfish.web</groupId>
                 <artifactId>jakarta.servlet.jsp.jstl</artifactId>
                 <version>${jakarta.servlet.jsp.jstl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${c3p0.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
