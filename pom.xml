@@ -13,6 +13,7 @@
         <module>homedevices-oop-servlet-jsp</module>
         <module>homedevices-oop-servlet-jsp-jdbc</module>
         <module>sorting</module>
+        <module>collection</module>
     </modules>
 
     <properties>
