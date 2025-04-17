@@ -15,6 +15,7 @@ import dev.pustelnikov.model.CardStatus;
 import dev.pustelnikov.service.CardService;
 import dev.pustelnikov.service.CardUtilService;
 import lombok.RequiredArgsConstructor;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 public class CardServiceImpl implements CardService {
@@ -36,25 +37,115 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void deleteCard(CardDeleteRequestDto cardDeleteRequestDto) {
+        Long cardId;
+        String cardNumber;
+        LocalDate cardExpirationDate;
+        CardStatus cardStatus;
+        Long accountId;
+
+        String id = cardDeleteRequestDto.getCardId();
+        if (id == null || id.isBlank()) {
+            cardId = null;
+        } else {
+            cardId = Long.valueOf(id);
+        }
+
+        String number = cardDeleteRequestDto.getCardNumber();
+        if (number == null || number.isBlank()) {
+            cardNumber = null;
+        } else {
+            cardNumber = number;
+        }
+
+        String expirationDate = cardDeleteRequestDto.getCardExpirationDate();
+        if (expirationDate == null || expirationDate.isBlank()) {
+            cardExpirationDate = null;
+        } else {
+            cardExpirationDate = LocalDate.parse(expirationDate);
+        }
+
+        String status = cardDeleteRequestDto.getCardStatus();
+        if (status == null || status.isBlank()) {
+            cardStatus = null;
+        } else {
+            cardStatus = CardStatus.valueOf(status);
+        }
+
+        String accId = cardDeleteRequestDto.getAccountId();
+        if (accId == null || accId.isBlank()) {
+            accountId = null;
+        } else {
+            accountId = Long.valueOf(accId);
+        }
+
         CardDeleteDto cardDeleteDto = CardDeleteDto.builder()
-                .cardId(cardDeleteRequestDto.getCardId())
-                .cardNumber(cardDeleteRequestDto.getCardNumber())
-                .cardExpirationDate(cardDeleteRequestDto.getCardExpirationDate())
-                .cardStatus(cardDeleteRequestDto.getCardStatus())
-                .accountId(cardDeleteRequestDto.getAccountId())
+                .cardId(cardId)
+                .cardNumber(cardNumber)
+                .cardExpirationDate(cardExpirationDate)
+                .cardStatus(cardStatus)
+                .accountId(accountId)
                 .build();
         cardDao.deleteCard(cardDeleteDto);
     }
 
     @Override
     public CardDto getCard(CardGetRequestDto cardGetRequestDto) {
+        Long cardId;
+        String cardNumber;
+        LocalDate cardExpirationDate;
+        Integer cardCvv;
+        CardStatus cardStatus;
+        Long accountId;
+
+        String id = cardGetRequestDto.getCardId();
+        if (id == null || id.isBlank()) {
+            cardId = null;
+        } else {
+            cardId = Long.valueOf(id);
+        }
+
+        String number = cardGetRequestDto.getCardNumber();
+        if (number == null || number.isBlank()) {
+            cardNumber = null;
+        } else {
+            cardNumber = number;
+        }
+
+        String expirationDate = cardGetRequestDto.getCardExpirationDate();
+        if (expirationDate == null || expirationDate.isBlank()) {
+            cardExpirationDate = null;
+        } else {
+            cardExpirationDate = LocalDate.parse(expirationDate);
+        }
+
+        String cvv = cardGetRequestDto.getCardCvv();
+        if (cvv == null || cvv.isBlank()) {
+            cardCvv = null;
+        } else {
+            cardCvv = Integer.valueOf(cvv);
+        }
+
+        String status = cardGetRequestDto.getCardStatus();
+        if (status == null || status.isBlank()) {
+            cardStatus = null;
+        } else {
+            cardStatus = CardStatus.valueOf(status);
+        }
+
+        String accId = cardGetRequestDto.getCardId();
+        if (accId == null || accId.isBlank()) {
+            accountId = null;
+        } else {
+            accountId = Long.valueOf(accId);
+        }
+
         CardGetDto cardGetDto = CardGetDto.builder()
-                .cardId(cardGetRequestDto.getCardId())
-                .cardNumber(cardGetRequestDto.getCardNumber())
-                .cardExpirationDate(cardGetRequestDto.getCardExpirationDate())
-                .cardCvv(cardGetRequestDto.getCardCvv())
-                .cardStatus(cardGetRequestDto.getCardStatus())
-                .accountId(cardGetRequestDto.getAccountId())
+                .cardId(cardId)
+                .cardNumber(cardNumber)
+                .cardExpirationDate(cardExpirationDate)
+                .cardCvv(cardCvv)
+                .cardStatus(cardStatus)
+                .accountId(accountId)
                 .build();
         return cardMapper.mapToDto(cardDao.findCard(cardGetDto));
     }

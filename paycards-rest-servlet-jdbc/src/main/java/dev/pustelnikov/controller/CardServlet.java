@@ -11,7 +11,6 @@ import dev.pustelnikov.dto.card.request.CardGetRequestDto;
 import dev.pustelnikov.dto.card.request.CardCreateRequestDto;
 import dev.pustelnikov.dto.card.request.CardUpdateRequestDto;
 import dev.pustelnikov.mapper.CardMapper;
-import dev.pustelnikov.model.CardStatus;
 import dev.pustelnikov.service.CardService;
 import dev.pustelnikov.service.CardUtilService;
 import dev.pustelnikov.service.implementation.CardServiceImpl;
@@ -25,7 +24,6 @@ import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 
 @WebServlet("/cards/*")
 public class CardServlet extends HttpServlet {
@@ -38,62 +36,14 @@ public class CardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Long cardId;
-        String cardNumber;
-        LocalDate cardExpirationDate;
-        Integer cardCvv;
-        CardStatus cardStatus;
-        Long accountId;
-
-        String id = request.getParameter("cardId");
-        if (id == null || id.isBlank()) {
-            cardId = null;
-        } else {
-            cardId = Long.valueOf(id);
-        }
-
-        String number = request.getParameter("cardNumber");
-        if (number == null || number.isBlank()) {
-            cardNumber = null;
-        } else {
-            cardNumber = number;
-        }
-
-        String expirationDate = request.getParameter("cardExpirationDate");
-        if (expirationDate == null || expirationDate.isBlank()) {
-            cardExpirationDate = null;
-        } else {
-            cardExpirationDate = LocalDate.parse(expirationDate);
-        }
-
-        String cvv = request.getParameter("cardCvv");
-        if (cvv == null || cvv.isBlank()) {
-            cardCvv = null;
-        } else {
-            cardCvv = Integer.valueOf(cvv);
-        }
-
-        String status = request.getParameter("cardStatus");
-        if (status == null || status.isBlank()) {
-            cardStatus = null;
-        } else {
-            cardStatus = CardStatus.valueOf(status);
-        }
-
-        String accId = request.getParameter("accountId");
-        if (accId == null || accId.isBlank()) {
-            accountId = null;
-        } else {
-            accountId = Long.valueOf(accId);
-        }
 
         CardGetRequestDto cardGetRequestDto = CardGetRequestDto.builder()
-                .cardId(cardId)
-                .cardNumber(cardNumber)
-                .cardExpirationDate(cardExpirationDate)
-                .cardCvv(cardCvv)
-                .cardStatus(cardStatus)
-                .accountId(accountId)
+                .cardId(request.getParameter("cardId"))
+                .cardNumber(request.getParameter("cardNumber"))
+                .cardExpirationDate(request.getParameter("cardExpirationDate"))
+                .cardCvv(request.getParameter("cardCvv"))
+                .cardStatus(request.getParameter("cardStatus"))
+                .accountId(request.getParameter("accountId"))
                 .build();
 
         CardDto card = cardService.getCard(cardGetRequestDto);
@@ -144,53 +94,13 @@ public class CardServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long cardId;
-        String cardNumber;
-        LocalDate cardExpirationDate;
-        CardStatus cardStatus;
-        Long accountId;
-
-        String id = request.getParameter("cardId");
-        if (id == null || id.isBlank()) {
-            cardId = null;
-        } else {
-            cardId = Long.valueOf(id);
-        }
-
-        String number = request.getParameter("cardNumber");
-        if (number == null || number.isBlank()) {
-            cardNumber = null;
-        } else {
-            cardNumber = number;
-        }
-
-        String expirationDate = request.getParameter("cardExpirationDate");
-        if (expirationDate == null || expirationDate.isBlank()) {
-            cardExpirationDate = null;
-        } else {
-            cardExpirationDate = LocalDate.parse(expirationDate);
-        }
-
-        String status = request.getParameter("cardStatus");
-        if (status == null || status.isBlank()) {
-            cardStatus = null;
-        } else {
-            cardStatus = CardStatus.valueOf(status);
-        }
-
-        String accId = request.getParameter("accountId");
-        if (accId == null || accId.isBlank()) {
-            accountId = null;
-        } else {
-            accountId = Long.valueOf(accId);
-        }
 
         CardDeleteRequestDto cardDeleteRequestDto = CardDeleteRequestDto.builder()
-                .cardId(cardId)
-                .cardNumber(cardNumber)
-                .cardExpirationDate(cardExpirationDate)
-                .cardStatus(cardStatus)
-                .accountId(accountId)
+                .cardId(request.getParameter("cardId"))
+                .cardNumber(request.getParameter("cardNumber"))
+                .cardExpirationDate(request.getParameter("cardExpirationDate"))
+                .cardStatus(request.getParameter("cardStatus"))
+                .accountId(request.getParameter("accountId"))
                 .build();
 
         cardService.deleteCard(cardDeleteRequestDto);
