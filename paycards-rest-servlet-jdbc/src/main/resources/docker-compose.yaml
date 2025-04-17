@@ -1,0 +1,12 @@
+name: paycards-rest-servlet-jdbc
+
+services:
+  database:
+    container_name: paycards-jdbc
+    image: postgres:17.0
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
